@@ -1,74 +1,71 @@
-<<<<<<< HEAD
-# Getting Started with Create React App
+# SpendWise - Frontend
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This repository contains the frontend components of an **SpendWise** built using React, React Bootstrap, and other modern web technologies. The application allows users to track their expenses, manage budgets, and view financial insights.
 
-## Available Scripts
+## Login Credentials
+email: test@example.com
+password: password123
 
-In the project directory, you can run:
+## Features Completed (Frontend)
 
-### `npm start`
+### 1. **Login Page**
+   - User authentication with email and password.
+   - Background image with `tsparticles` animation for a modern look.
+   - Form validation and error handling.
+   - Toast notifications for success and error messages.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### 2. **Registration Page**
+   - User registration with name, email, and password.
+   - Consistent design with the Login page (background image, particles, and styling).
+   - Form validation and error handling.
+   - Toast notifications for success and error messages.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### 3. **Home Page**
+   - Displays a welcome message and a brief description of the application.
+   - Redirects unauthenticated users to the login page.
+   - Features a button to navigate to the **Expense Tracker** page.
+   - Background image with an overlay for better readability.
 
-### `npm test`
+### 4. **Add Transaction Modal**
+   - Allows users to add new transactions (income or expenses).
+   - Includes fields for title, amount, category, description, transaction type, and date.
+   - Form validation to ensure all fields are filled.
+   - Toast notifications for success and error messages.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### 5. **TableData Page**
+   - Displays a table of all transactions (income and expenses).
+   - Provides options to view, edit, or delete transactions.
+   - Responsive design for all screen sizes.
 
-### `npm run build`
+### 6. **Analytics Page**
+   - Visual representation of expenses and income using charts or graphs.
+   - Displays insights such as total income, total expenses, and net balance.
+   - Categorizes expenses for better financial analysis.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### 7. **Navbar Component**
+   - Responsive navigation bar with a logo and login/logout buttons.
+   - Dynamic rendering based on user authentication status.
+   - `tsparticles` animation in the background for a cohesive design.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### 8. **Styling**
+   - Consistent color scheme (gold accents, dark theme).
+   - Semi-transparent containers for better readability.
+   - Responsive design for all screen sizes.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Technologies Used
+- **React**: Frontend library for building user interfaces.
+- **React Bootstrap**: UI framework for responsive and pre-styled components.
+- **tsparticles**: Library for creating interactive particle animations.
+- **React Router DOM**: For handling client-side routing.
+- **React Toastify**: For displaying toast notifications.
+- **Axios**: For making HTTP requests to the backend.
+- **Chart.js** or **Recharts**: For visualizing financial data on the Analytics page.
 
-### `npm run eject`
+## screenshots
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+![login page](image.png)
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+![signup page](image-1.png)
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
 
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
-=======
-# SpendWise
->>>>>>> 64a29b116c5f683e9013900ee35cfcea5376bc00
