@@ -118,7 +118,7 @@ const Header = () => {
               src="spendwiselogo.png"
               height="80"
               className="d-inline-block align-top"
-              alt="Sprndwise Logo"
+              alt="Spendwise Logo"
             />
           </Navbar.Brand>
           <Navbar.Toggle

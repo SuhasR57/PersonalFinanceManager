@@ -1,9 +1,19 @@
+/* General Styles */
 body {
     margin: 0;
     font-family: 'Arial', sans-serif;
     color: white;
 }
 
+/* Background Image and Overlay */
+.home-background {
+    position: relative;
+    min-height: 100vh;
+    background-size: cover;
+    background-position: center;
+    filter: brightness(0.8) contrast(1.2) saturate(1.1);
+    /* Color grading for the background image */
+}
 
 .background-overlay {
     position: absolute;
@@ -13,41 +23,52 @@ body {
     bottom: 0;
     background-color: rgba(0, 0, 0, 0.6);
     /* Dark overlay for better readability */
+    z-index: 2;
+    /* Ensure overlay is above particles */
 }
 
+/* Container Styles */
+.home-container {
+    position: relative;
+    z-index: 3;
+    /* Ensure content is above overlay and particles */
+    text-align: center;
+    padding-top: 100px;
+}
 
+/* Typography */
 h1 {
     font-size: 4rem;
     font-style: italic;
     font-weight: bold;
     margin-bottom: 20px;
     color: #ffcc00;
-
+    /* Gold color for headings */
 }
 
 h3 {
     font-size: 1.5rem;
     font-style: italic;
     color: #ffcc00;
-
+    /* Gold color for subheadings */
 }
 
 p {
     font-size: 1.2rem;
     line-height: 1.6;
     color: #f0f0f0;
-
+    /* Light gray for text */
     max-width: 800px;
     margin: 0 auto;
 }
 
-
+/* Button Styles */
 .btn-primary {
     background-color: #ffcc00;
-
+    /* Gold background */
     border: none;
     color: #000;
-
+    /* Black text */
     font-weight: bold;
     padding: 10px 30px;
     font-size: 1.2rem;
@@ -57,18 +78,10 @@ p {
 
 .btn-primary:hover {
     background-color: #e6b800;
-
+    /* Darker gold on hover */
 }
 
-/* Container Styles */
-.container {
-    position: relative;
-    z-index: 2;
-    text-align: center;
-    padding-top: 100px;
-}
-
-
+/* Toast Notifications */
 .Toastify__toast-container {
     z-index: 9999;
 }
@@ -79,11 +92,12 @@ p {
 
 .Toastify__toast--success {
     background-color: #28a745;
+    /* Green for success */
 }
 
 .Toastify__toast--error {
     background-color: #dc3545;
-
+    /* Red for errors */
 }
 
 /* Responsive Design */

@@ -57,7 +57,7 @@ const SetAvatar = () => {
 
   const [selectedAvatar, setSelectedAvatar] = useState(undefined);
   const [loading, setLoading] = useState(false);
-  const [selectedSprite, setSelectedSprite] = React.useState(sprites[0]);
+  const [setSelectedSprite] = React.useState(sprites[0]);
 
   useEffect(() => {
     if (!localStorage.getItem("user")) {
@@ -89,8 +89,7 @@ const SetAvatar = () => {
         const imgData = [];
         for (let i = 0; i < 4; i++) {
           imgData.push(
-            `https://api.dicebear.com/7.x/${
-              e.target.value
+            `https://api.dicebear.com/7.x/${e.target.value
             }/svg?seed=${randomName()}`
           );
         }
@@ -251,9 +250,8 @@ const SetAvatar = () => {
                           <img
                             src={image}
                             alt=""
-                            className={`avatar ${
-                              selectedAvatar === index ? "selected" : ""
-                            } img-circle imgAvatar mt-5`}
+                            className={`avatar ${selectedAvatar === index ? "selected" : ""
+                              } img-circle imgAvatar mt-5`}
                             onClick={() => setSelectedAvatar(index)}
                             width="100%"
                             height="auto"

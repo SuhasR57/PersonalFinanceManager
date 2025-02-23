@@ -69,3 +69,10 @@ password: password123
 ![signup page](image-1.png)
 
 
+![Home page](image-2.png)
+
+
+![expensetracker page ](image-3.png)
+
+
+![analytics page](image-4.png)
