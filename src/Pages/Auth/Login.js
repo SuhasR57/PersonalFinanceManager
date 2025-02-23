@@ -142,10 +142,10 @@ const Login = () => {
                 <Link to="/forgotPassword" className="text-white">Forgot Password?</Link>
                 <Button
                   type="submit"
-                  className="mt-3 w-100" // Full-width button
+                  className="mt-3 w-100"
                   onClick={!loading ? handleSubmit : null}
                   disabled={loading}
-                  style={{ backgroundColor: "#ffcc00", border: "none", color: "black" }} // Gold button
+                  style={{ backgroundColor: "#ffcc00", border: "none", color: "black" }}
                 >
                   {loading ? "Signing in…" : "Login"}
                 </Button>

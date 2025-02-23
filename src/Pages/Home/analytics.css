@@ -7,12 +7,12 @@ body {
 
 }
 
-/* Container Styles */
+
 .container {
     padding-top: 20px;
 }
 
-/* Card Styles */
+
 .card {
     background-color: #303b71cf;
 
@@ -55,7 +55,7 @@ body {
 
 }
 
-/* Progress Bar Styles */
+
 .circular-progress {
     margin: 10px auto;
 }
@@ -64,9 +64,9 @@ body {
     margin-bottom: 10px;
 }
 
-/* Income and Expense Colors */
+
 .income {
-    color: #84f69e;
+    color: #76f092;
 
 }
 

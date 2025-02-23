@@ -1,4 +1,4 @@
-// NavbarComponent.js
+
 import React, { useCallback, useEffect, useState } from 'react';
 import { Navbar, Nav, Button } from 'react-bootstrap';
 import "./style.css";
