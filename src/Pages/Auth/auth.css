@@ -1,10 +1,24 @@
-.lnk{
+.btnStyle {
+    background-color: #ffcc00;
+    border: none;
+    color: #000;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.btnStyle:hover {
+    background-color: #e6b800;
+}
+
+.lnk {
+    color: #ffcc00;
     text-decoration: none;
+    transition: color 0.3s ease;
 }
-.btnStyle{
-    background-color: red;
-    border: 2px solid red;
-}
-.btnStyle:hover{
-    background-color: rgb(75, 11, 11);
+
+.lnk:hover {
+    color: #e6b800;
 }

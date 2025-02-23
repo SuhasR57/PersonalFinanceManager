@@ -1,0 +1,101 @@
+/* General Styles */
+body {
+    margin: 0;
+    font-family: 'Arial', sans-serif;
+    color: white;
+    background-color: #121212;
+
+}
+
+/* Container Styles */
+.container {
+    padding-top: 20px;
+}
+
+/* Card Styles */
+.card {
+    background-color: #303b71cf;
+
+    border: 1px solid #333;
+    border-radius: 10px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+.card-header {
+    background-color: #4b4b4b;
+
+    border-bottom: 1px solid #414141;
+    padding: 15px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #ffcc00;
+
+}
+
+.card-body {
+    padding: 20px;
+}
+
+.card-title {
+    font-size: 1.1rem;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+}
+
+.card-title svg {
+    font-size: 1.2rem;
+
+}
+
+/* Progress Bar Styles */
+.circular-progress {
+    margin: 10px auto;
+}
+
+.line-progress {
+    margin-bottom: 10px;
+}
+
+/* Income and Expense Colors */
+.income {
+    color: #84f69e;
+
+}
+
+.expense {
+    color: #f34a66;
+
+}
+
+
+@media (max-width: 768px) {
+    .card {
+        margin-bottom: 20px;
+    }
+
+    .card-header {
+        font-size: 1.1rem;
+    }
+
+    .card-title {
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .card-header {
+        font-size: 1rem;
+    }
+
+    .card-title {
+        font-size: 0.9rem;
+    }
+}
