@@ -11,7 +11,11 @@ import Analytics from "./Analytics";
 import TableData from "./TableData";
 import Spinner from "../../components/Spinner";
 import AddTransaction from "./AddTransaction";
+import { getTransactions } from "../../utils/ApiRequest";
+import axios from "axios";
 import "./ExpenseTracker.css";
+import moment from "moment";
+import { saveAs } from "file-saver"; // For downloading files
 
 const ExpenseTracker = () => {
     const navigate = useNavigate();
@@ -83,51 +87,55 @@ const ExpenseTracker = () => {
         setRefresh(!refresh);
     };
 
-
-    const mockGetTransactions = async () => {
+    const fetchTransactions = async () => {
         try {
             setLoading(true);
+            const { data } = await axios.post(getTransactions, {
+                userId: cUser._id,
+                type,
+                frequency,
+                startDate: startDate ? moment(startDate).format("YYYY-MM-DD") : null,
+                endDate: endDate ? moment(endDate).format("YYYY-MM-DD") : null,
+            });
 
-
-            await new Promise((resolve) => setTimeout(resolve, 1000));
-
-            // Mocked transactions data
-            const mockTransactions = [
-                {
-                    _id: "1",
-                    title: "Groceries",
-                    amount: 50,
-                    description: "Weekly groceries",
-                    category: "Groceries",
-                    date: "2023-10-01",
-                    transactionType: "expense",
-                },
-                {
-                    _id: "2",
-                    title: "Salary",
-                    amount: 2000,
-                    description: "Monthly salary",
-                    category: "Salary",
-                    date: "2023-10-05",
-                    transactionType: "credit",
-                },
-            ];
-
-            setTransactions(mockTransactions);
-            setLoading(false);
+            if (data.success) {
+                setTransactions(data.transactions);
+            } else {
+                console.error("Failed to fetch transactions:", data.message);
+            }
         } catch (err) {
+            console.error("Error fetching transactions:", err);
+        } finally {
             setLoading(false);
         }
     };
 
-    // Add a new transaction locally
-    const addTransactionLocally = (newTransaction) => {
-        setTransactions((prevTransactions) => [...prevTransactions, newTransaction]);
+    // Function to download transactions report as CSV
+    const downloadReport = () => {
+        // Create CSV content
+        const headers = ["Date", "Title", "Amount", "Type", "Category", "Description"];
+        const rows = transactions.map((transaction) => [
+            moment(transaction.date).format("YYYY-MM-DD"),
+            transaction.title,
+            transaction.amount,
+            transaction.transactionType,
+            transaction.category,
+            transaction.description,
+        ]);
+
+        const csvContent = [
+            headers.join(","), // Header row
+            ...rows.map((row) => row.join(",")), // Data rows
+        ].join("\n");
+
+        // Create a Blob and trigger download
+        const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
+        saveAs(blob, `transactions_report_${moment().format("YYYYMMDD_HHmmss")}.csv`);
     };
 
     useEffect(() => {
         if (cUser) {
-            mockGetTransactions();
+            fetchTransactions();
         }
     }, [refresh, frequency, endDate, type, startDate, cUser]);
 
@@ -222,13 +230,18 @@ const ExpenseTracker = () => {
                             </div>
                         </div>
 
+                        {/* Download Report Button */}
+                        <div className="text-center mb-4">
+                            <Button variant="success" onClick={downloadReport}>
+                                Download Report (CSV)
+                            </Button>
+                        </div>
 
                         <AddTransaction
                             show={show}
                             handleClose={handleClose}
                             refreshTransactions={refreshTransactions}
                             userId={cUser?._id}
-                            addTransactionLocally={addTransactionLocally}
                         />
 
                         {/* Custom Date Range */}

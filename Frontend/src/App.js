@@ -16,9 +16,10 @@ const App = () => {
     <div className="App" style={{ backgroundColor: 'grey' }}>
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Home />} />
+
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/" element={<Home />} />
           <Route path="/expense-tracker" element={<ExpenseTracker />} />
           <Route path="/setAvatar" element={<SetAvatar />} />
         </Routes>

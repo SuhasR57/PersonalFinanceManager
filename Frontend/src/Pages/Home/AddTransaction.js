@@ -2,8 +2,10 @@ import React, { useState } from "react";
 import { Modal, Form, Button } from "react-bootstrap";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import axios from "axios";
+import { addTransaction } from "../../utils/ApiRequest"; // Import the API endpoint
 
-const AddTransaction = ({ show, handleClose, refreshTransactions, userId, addTransactionLocally }) => {
+const AddTransaction = ({ show, handleClose, refreshTransactions, userId }) => {
     const [values, setValues] = useState({
         title: "",
         amount: "",
@@ -12,6 +14,8 @@ const AddTransaction = ({ show, handleClose, refreshTransactions, userId, addTra
         date: "",
         transactionType: "",
     });
+
+    const [loading, setLoading] = useState(false);
 
     const handleChange = (e) => {
         setValues({ ...values, [e.target.name]: e.target.value });
@@ -22,9 +26,9 @@ const AddTransaction = ({ show, handleClose, refreshTransactions, userId, addTra
 
         const { title, amount, description, category, date, transactionType } = values;
 
-
+        // Validate inputs
         if (!title || !amount || !description || !category || !date || !transactionType) {
-            toast.error("Please enter all the fields", {
+            toast.error("Please fill in all fields", {
                 position: "bottom-right",
                 autoClose: 2000,
                 hideProgressBar: false,
@@ -37,46 +41,98 @@ const AddTransaction = ({ show, handleClose, refreshTransactions, userId, addTra
             return;
         }
 
+        setLoading(true);
 
         try {
-            console.log("Mock API: Adding transaction...", values); // Log the transaction data
-
-
-            await new Promise((resolve) => setTimeout(resolve, 1000));
-
-
-            const newTransaction = {
-                _id: Math.random().toString(36).substr(2, 9), // Generate a random ID
-                ...values,
-                userId: userId,
+            // Prepare request body
+            const requestBody = {
+                title,
+                amount,
+                description,
+                category,
+                date,
+                transactionType,
+                userId,
             };
 
-            addTransactionLocally(newTransaction); // Add the new transaction locally
+            console.log("Request Body:", requestBody); // Debugging
 
-            toast.success("Transaction added successfully!", {
-                position: "bottom-right",
-                autoClose: 2000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: false,
-                draggable: true,
-                progress: undefined,
-                theme: "dark",
-            });
-            handleClose();
-            refreshTransactions(); // Refresh transactions after adding a new one
+            // Make API call to add transaction
+            const { data } = await axios.post(addTransaction, requestBody);
+
+            console.log("API Response:", data); // Debugging
+
+            if (data.success) {
+                toast.success("Transaction added successfully!", {
+                    position: "bottom-right",
+                    autoClose: 2000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: false,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "dark",
+                });
+                handleClose();
+                refreshTransactions(); // Refresh the transactions list
+            } else {
+                toast.error(data.message || "Failed to add transaction", {
+                    position: "bottom-right",
+                    autoClose: 2000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: false,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "dark",
+                });
+            }
         } catch (error) {
-            console.error("Mock API Error:", error);
-            toast.error("Network error. Please try again later.", {
-                position: "bottom-right",
-                autoClose: 2000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: false,
-                draggable: true,
-                progress: undefined,
-                theme: "dark",
-            });
+            console.error("Error adding transaction:", error);
+
+            // Display a user-friendly error message
+            if (error.response) {
+                // Server responded with an error status code (e.g., 400, 500)
+                toast.error(
+                    error.response.data.message || "Failed to add transaction. Please try again.",
+                    {
+                        position: "bottom-right",
+                        autoClose: 2000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: false,
+                        draggable: true,
+                        progress: undefined,
+                        theme: "dark",
+                    }
+                );
+            } else if (error.request) {
+                // The request was made but no response was received
+                toast.error("Network error. Please check your connection.", {
+                    position: "bottom-right",
+                    autoClose: 2000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: false,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "dark",
+                });
+            } else {
+                // Something else caused the error
+                toast.error("An unexpected error occurred. Please try again.", {
+                    position: "bottom-right",
+                    autoClose: 2000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: false,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "dark",
+                });
+            }
+        } finally {
+            setLoading(false);
         }
     };
 
@@ -169,8 +225,8 @@ const AddTransaction = ({ show, handleClose, refreshTransactions, userId, addTra
                 <Button variant="secondary" onClick={handleClose}>
                     Close
                 </Button>
-                <Button variant="primary" onClick={handleSubmit}>
-                    Submit
+                <Button variant="primary" onClick={handleSubmit} disabled={loading}>
+                    {loading ? "Submitting..." : "Submit"}
                 </Button>
             </Modal.Footer>
         </Modal>

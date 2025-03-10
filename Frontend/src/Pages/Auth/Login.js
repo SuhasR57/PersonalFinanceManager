@@ -2,10 +2,11 @@ import { useCallback, useEffect, useState } from "react";
 import { Container, Row, Col, Form, Button } from "react-bootstrap";
 import Particles from "react-tsparticles";
 import { loadFull } from "tsparticles";
-//import AccountBalanceWalletIcon from "@mui/icons-material/AccountBalanceWallet";
 import { Link, useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import axios from "axios";
+import { loginAPI } from "../../utils/ApiRequest";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -35,21 +36,42 @@ const Login = () => {
     setValues({ ...values, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
 
     const { email, password } = values;
 
-
-    if (email === "test@example.com" && password === "password123") {
-      localStorage.setItem("user", JSON.stringify({ email }));
-      navigate("/");
-      toast.success("Login successful!", toastOptions);
-    } else {
-      toast.error("Invalid email or password", toastOptions);
+    // Validate inputs
+    if (!email || !password) {
+      toast.error("Please enter both email and password", toastOptions);
+      setLoading(false);
+      return;
     }
-    setLoading(false);
+
+    try {
+      // Make API call to login using the loginAPI constant
+      const { data } = await axios.post(loginAPI, {
+        email,
+        password,
+      });
+
+      if (data.success) {
+        // Save user data in localStorage
+        localStorage.setItem("user", JSON.stringify(data.user));
+        navigate("/");
+        toast.success("Login successful!", toastOptions);
+      } else {
+        toast.error(data.message || "Invalid email or password", toastOptions);
+      }
+    } catch (err) {
+      toast.error(
+        err.response?.data?.message || "Network error. Please try again later.",
+        toastOptions
+      );
+    } finally {
+      setLoading(false);
+    }
   };
 
   const particlesInit = useCallback(async (engine) => {
@@ -111,7 +133,11 @@ const Login = () => {
         <Row>
           <Col>
             <h1 className="img-center">
-              <img src={"spendwiselogo.png"} alt="SpendWise Logo" style={{ width: "120px" }} />
+              <img
+                src={"spendwiselogo.png"}
+                alt="SpendWise Logo"
+                style={{ width: "120px" }}
+              />
             </h1>
             <h2 className="text-white text-center">Login</h2>
             <Form>
@@ -123,7 +149,7 @@ const Login = () => {
                   name="email"
                   onChange={handleChange}
                   value={values.email}
-                  style={{ backgroundColor: "rgba(255, 255, 255, 0.1)", color: "white" }} // Styled input
+                  style={{ backgroundColor: "rgba(255, 255, 255, 0.1)", color: "white" }}
                 />
               </Form.Group>
 
@@ -135,11 +161,13 @@ const Login = () => {
                   placeholder="Password"
                   onChange={handleChange}
                   value={values.password}
-                  style={{ backgroundColor: "rgba(255, 255, 255, 0.1)", color: "white" }} // Styled input
+                  style={{ backgroundColor: "rgba(255, 255, 255, 0.1)", color: "white" }}
                 />
               </Form.Group>
               <div className="mt-4 text-center">
-                <Link to="/forgotPassword" className="text-white">Forgot Password?</Link>
+                <Link to="/forgotPassword" className="text-white">
+                  Forgot Password?
+                </Link>
                 <Button
                   type="submit"
                   className="mt-3 w-100"
@@ -150,7 +178,10 @@ const Login = () => {
                   {loading ? "Signing in…" : "Login"}
                 </Button>
                 <p className="mt-3 text-light">
-                  Don't have an account? <Link to="/register" className="text-white">Register</Link>
+                  Don't have an account?{" "}
+                  <Link to="/register" className="text-white">
+                    Register
+                  </Link>
                 </p>
               </div>
             </Form>
